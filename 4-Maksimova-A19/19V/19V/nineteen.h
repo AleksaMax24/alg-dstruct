@@ -1,31 +1,20 @@
 #ifndef nineteen_H_
 #define nineteen_H_
 
-
 #define MAX_SIZE 15
-#define LIST_SIZE 6
 
-typedef struct DATA {
-	char value[MAX_SIZE];
-} DATA;
-
-typedef struct NODE {
-	DATA value;
-	struct NODE* next;
-	struct NODE* prev;
-} NODE;
 
 typedef struct LIST {
-	NODE* head;
-	NODE* tail;
+	struct LIST *prev, *next;
+	char value[MAX_SIZE];
 } LIST;
 
-LIST* createList();
+LIST* createList(char* value);
+int pushFront(LIST** list, LIST* ne);
+int pushBack(LIST** list, LIST* ne);
 void deleteList(LIST** list);
-void pushFront(LIST* list, char* value);
-DATA popFront(LIST* list);
-void pushBack(LIST* list, char* value);
-void InsertBefore(LIST* list, NODE* elm, char* value);
-int Sort(LIST** List);
+int popFront(LIST** list, char* src);
+int InsertBefore(LIST* q, LIST* ne);
+int Sort(LIST* list);
 
 #endif 

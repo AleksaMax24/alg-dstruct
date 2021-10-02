@@ -6,128 +6,143 @@
 
 #pragma warning(disable:4996)
 
+LIST* createList(char* value)
+{
+  LIST* tmp = (LIST*)malloc(sizeof(LIST));
+  if (tmp == NULL)
+    return NULL;
 
-LIST* createList() {
-    LIST* tmp = (LIST*)malloc(sizeof(LIST));
-    tmp->head = tmp->tail = NULL;
-    return tmp;
+  tmp->next = tmp->prev = NULL;
+  strcpy(tmp->value, value);
+
+  return tmp;
 }
 
-void deleteList(LIST** list) {
-    NODE* tmp = (*list)->head;
-    NODE* next = NULL;
-    while (tmp) {
-        next = tmp->next;
-        free(tmp);
-        tmp = next;
-    }
-    free(*list);
-    (*list) = NULL;
-}
+int pushFront(LIST** list, LIST* ne) {
+  if (ne == NULL || ne->next != NULL)
+      return 0;
 
-void pushFront(LIST* list, char* value) {
-    NODE* tmp = (NODE*)malloc(sizeof(NODE));
-    if (tmp == NULL)
-        return;
-    strcpy(tmp->value.value, value);
-    tmp->next = list->head;
-    tmp->prev = NULL;
-    if (list->head)
-        list->head->prev = tmp;
-    list->head = tmp;
-    if (list->tail == NULL)
-        list->tail = list->head;
-}
-
-DATA popFront(LIST* list) {
-    NODE* prev;
-    DATA tmp = { 0 };
-    if (list->head == NULL)
-        return tmp;
-    prev = list->head;
-    list->head = list->head->next;
-    if (list->head)
-        list->head->prev = NULL;
-    else
-        list->tail = NULL;
-    tmp = prev->value;
-    free(prev);
-    return tmp;
-}
-
-void pushBack(LIST* list, char* value) {
-    NODE* newEl = (NODE*)malloc(sizeof(NODE));
-    NODE* tmp1 = NULL;
-
-    if (newEl == NULL) {
-        exit(3);
-    }
-    if (list->head == NULL) {
-        pushFront(list, value);
-    }
-    else {
-        tmp1 = list->tail;
-
-        newEl->prev = tmp1;
-        newEl->next = NULL;
-        strcpy(newEl->value.value, value);
-
-        tmp1->next = newEl;
-        list->tail = newEl;
-    }
-}
-
-void InsertBefore(LIST* list, NODE* q, char* value) {
-    NODE* ins = NULL;
-    if (q == NULL) {
-        return;
-    }
-    if (!q->prev) {
-        pushFront(list, value);
-        return;
-    }
-    ins = (NODE*)malloc(sizeof(NODE));
-    if (ins == NULL) {
-        return;
-    }
-    strcpy(ins->value.value, value);
-    ins->prev = q->prev;
-    ins->next = q;
-
-    q->prev = ins;
-
-    ins->prev->next = ins;
-}
-
-int Sort(LIST** List) {
-    if ((*List)->head == NULL) {
-        return 0;
-    }
-    LIST* firstl = createList();
-    NODE* secondl = NULL;
-    NODE* unsort = NULL;
-    DATA tmp = popFront(*List);
-    pushFront(firstl, tmp.value);
-
-    unsort = (*List)->head;
-    while (unsort != NULL) {
-        secondl = firstl->tail;
-        int result = strcmp(unsort->value.value, secondl->value.value);
-
-        while (secondl != NULL && secondl->prev != NULL && result < 0) {
-            secondl = secondl->prev;
-            result = strcmp(unsort->value.value, secondl->value.value);
-        }
-        if (result < 0)
-            InsertBefore(firstl, secondl, unsort->value.value);
-        else if (secondl->next != NULL)
-            InsertBefore(firstl, secondl->next, unsort->value.value);
-        else
-            pushBack(firstl, unsort->value.value);
-        unsort = unsort->next;
-    }
-    free(*List);
-    *List = firstl;
+  if (*list == NULL)
+  {
+    *list = ne;
     return 1;
+  }
+
+  LIST* head = *list;
+  while (head->prev != NULL)
+    head = head->prev;
+  head->prev = ne;
+  ne->next = head;
+  return 1;
 }
 
+int pushBack(LIST** list, LIST* ne) {
+  if (ne == NULL || ne->prev != NULL)
+    return 0;
+
+  if (*list == NULL)
+  {
+    *list = ne;
+    return 1;
+  }
+
+  LIST* tail = *list;
+  while (tail->next != NULL)
+    tail = tail->next;
+  tail->next = ne;
+  ne->prev = tail;
+  return 1;
+}
+
+void deleteList(LIST** list)
+{
+  LIST* tmp = *list;
+  LIST* next = NULL;
+
+  if (tmp == NULL)
+    return;
+
+  while (tmp->prev != NULL)
+    tmp = tmp->prev;
+
+  while (tmp)
+  {
+    next = tmp->next;
+    free(tmp);
+    tmp = next;
+  }
+
+  (*list) = NULL;
+}
+
+int popFront(LIST** list, char* src) {
+  LIST* tmp = *list;
+  if (tmp == NULL)
+  {
+    src[0] = 0;
+    return 0;
+  }
+
+  while (tmp->prev != NULL)
+    tmp = tmp->prev;
+
+  if (tmp == *list)
+  {
+    if (tmp->next != NULL)
+      tmp->next->prev = NULL;
+    *list = tmp->next;
+  }
+  else
+    tmp->next->prev = NULL;
+  strcpy(src, tmp->value);
+  free(tmp);
+  return 1;
+}
+
+int InsertBefore(LIST* q, LIST* ne) {
+  if (q == NULL || ne == NULL || ne->prev != NULL || ne->next != NULL)
+    return 0;
+
+  ne->prev = q->prev;
+  ne->next = q;
+
+  q->prev = ne;
+  if (ne->prev != NULL)
+    ne->prev->next = ne;
+  return 1;
+}
+
+int Sort(LIST* list)
+{
+  LIST* Cur = list;
+
+  if (list == NULL)
+    return 0;
+
+  int flag = 1;
+  do
+  {
+    while (Cur->prev != NULL)
+      Cur = Cur->prev;
+    flag = 0;
+    while (Cur->next != NULL)
+    {
+      if (strcmp(Cur->value, Cur->next->value) == 1)
+      {
+        if (Cur->prev != NULL)
+          Cur->prev->next = Cur->next;
+        Cur->next->prev = Cur->prev;
+        Cur->prev = Cur->next;
+
+        if (Cur->next->next != NULL)
+          Cur->next->next->prev = Cur;
+        Cur->next = Cur->next->next;
+        Cur->prev->next = Cur;
+        flag = 1;
+      }
+      else
+        Cur = Cur->next;
+    }
+  } while (flag);
+  return 1;
+}
