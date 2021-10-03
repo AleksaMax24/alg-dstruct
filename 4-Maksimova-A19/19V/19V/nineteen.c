@@ -10,7 +10,10 @@ LIST* createList(char* value)
 {
   LIST* tmp = (LIST*)malloc(sizeof(LIST));
   if (tmp == NULL)
+  {
+    printf("Allocation memory error!");
     return NULL;
+  }
 
   tmp->next = tmp->prev = NULL;
   strcpy(tmp->value, value);
@@ -99,16 +102,16 @@ int popFront(LIST** list, char* src) {
   return 1;
 }
 
-int InsertBefore(LIST* q, LIST* ne) {
-  if (q == NULL || ne == NULL || ne->prev != NULL || ne->next != NULL)
+int InsertBefore(LIST* ins, LIST* new0) {
+  if (ins == NULL || new0 == NULL || new0->prev != NULL || new0->next != NULL)
     return 0;
 
-  ne->prev = q->prev;
-  ne->next = q;
+  new0->prev = ins->prev;
+  new0->next = ins;
 
-  q->prev = ne;
-  if (ne->prev != NULL)
-    ne->prev->next = ne;
+  ins->prev = new0;
+  if (new0->prev != NULL)
+    new0->prev->next = new0;
   return 1;
 }
 

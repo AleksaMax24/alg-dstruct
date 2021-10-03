@@ -2,6 +2,7 @@
 extern "C"
 {
 #include "nineteen.h"
+#define MAX_SIZE 15
 }
 
 
@@ -15,7 +16,7 @@ void set(void)
 
 }
 
-TEST(pushFront, EmptyList1_returnTrue)
+TEST(pushFront, EmptyList1_NewElement00)
 {
   set();
   LIST* list = NULL;
@@ -25,7 +26,7 @@ TEST(pushFront, EmptyList1_returnTrue)
   EXPECT_EQ(strcmp(list->value, "00"), 0);
 }
 
-TEST(pushFront, ElementList2_returnTrue)
+TEST(pushFront, ElementList2_NewElement11)
 {
   set();
   LIST* list = &node[0];
@@ -36,7 +37,7 @@ TEST(pushFront, ElementList2_returnTrue)
   EXPECT_EQ(strcmp(list->prev->value, "11"), 0);
 }
 
-TEST(pushFront, ElementList3_returnTrue) 
+TEST(pushFront, ElementList3_NewElement22)
 {
   set();
   LIST* list = &node[0];
@@ -49,7 +50,7 @@ TEST(pushFront, ElementList3_returnTrue)
   EXPECT_EQ(strcmp(list->prev->prev->value, "22"), 0);
 }
 
-TEST(pushBack, EmptyList1_returnTrue)
+TEST(pushBack, EmptyList1_NewElement0)
 {
 set();
   LIST* list = NULL;
@@ -59,7 +60,7 @@ set();
   EXPECT_EQ(strcmp(list->value, "00"), 0);
 }
 
-TEST(pushBack, ElementList2_returnTrue)
+TEST(pushBack, ElementList2_NewElement11)
 {
 set();
   LIST* list = &node[0];
@@ -70,7 +71,7 @@ set();
   EXPECT_EQ(strcmp(list->next->value, "11"), 0);
 }
 
-TEST(pushBack, ElementList3_returnTrue)
+TEST(pushBack, ElementList3_NewElement22)
 {
 set();
   LIST* list = &node[0];
@@ -125,7 +126,7 @@ set();
   EXPECT_EQ(strcmp(list->prev->value, "11"), 0);
 }
 
-TEST(InsertBefore, ElementList2_returnTrue)
+TEST(InsertBefore, ElementList2_AddedElement22)
 {
 set();
   LIST* list = &node[0];

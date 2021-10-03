@@ -1,9 +1,6 @@
 #ifndef nineteen_H_
 #define nineteen_H_
 
-#define MAX_SIZE 15
-
-
 typedef struct LIST {
 	struct LIST *prev, *next;
 	char value[MAX_SIZE];
