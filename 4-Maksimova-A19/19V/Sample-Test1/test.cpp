@@ -2,7 +2,7 @@
 extern "C"
 {
 #define MAX_SIZE 15
-#include "../Project4/nineteentwo.h"
+#include "nineteentwo.h"
 }
 
 
