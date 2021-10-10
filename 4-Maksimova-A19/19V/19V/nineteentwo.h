@@ -1,17 +1,18 @@
-#ifndef nine_H_
-#define nine_H_
+#ifndef nineteentwo_H_
+#define nineteentwo_H_
+
 
 typedef struct LIST {
 	struct LIST* prev, * next;
-	char* value;
+	char *value;
 } LIST;
 
 LIST* createList(char* value);
-int pushFront(LIST** list, LIST* newel);
-int pushBack(LIST** list, LIST* newel);
+int pushFront(LIST** list, LIST* ne);
+int pushBack(LIST** list, LIST* ne);
 void deleteList(LIST** list);
 int popFront(LIST** list, char* src);
-int insertBefore(LIST* ins, LIST* newel);
+int insertBefore(LIST* q, LIST* ne);
 int Sort(LIST* list);
 
 #endif 

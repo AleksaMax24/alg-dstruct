@@ -1,4 +1,4 @@
-#include "nineteen.h"
+#include "nineteentwo.h"
 #include <stdio.h>
 #include <malloc.h>
 #include <stdlib.h>
@@ -6,8 +6,7 @@
 
 #pragma warning(disable:4996)
 
-LIST* createList(char* value)
-{
+LIST* createList(char* value){
     LIST* tmp = (LIST*)malloc(sizeof(LIST));
     if (tmp == NULL)
     {
@@ -16,7 +15,7 @@ LIST* createList(char* value)
     }
 
     tmp->next = tmp->prev = NULL;
-    strcpy(tmp->value, value);
+    tmp->value = value;
 
     return tmp;
 }
@@ -98,18 +97,17 @@ int popFront(LIST** list, char* src) {
     else
         tmp->next->prev = NULL;
     strcpy(src, tmp->value);
-    free(tmp);
     return 1;
 }
 
-int insertBefore(LIST* ins, LIST* newel) {
-    if (ins == NULL || newel == NULL || newel->prev != NULL || newel->next != NULL)
+int insertBefore(LIST* q, LIST* newel) {
+    if (q == NULL || newel == NULL || newel->prev != NULL || newel->next != NULL)
         return 0;
 
-    newel->prev = ins->prev;
-    newel->next = ins;
+    newel->prev = q->prev;
+    newel->next = q;
 
-    ins->prev = newel;
+    q->prev = newel;
     if (newel->prev != NULL)
         newel->prev->next = newel;
     return 1;
