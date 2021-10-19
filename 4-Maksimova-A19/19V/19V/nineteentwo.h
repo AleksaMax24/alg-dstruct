@@ -2,7 +2,7 @@
 #define nineteentwo_H_
 
 
-typedef struct LIST {
+typedef struct LIST{
 	struct LIST* prev, * next;
 	char *value;
 } LIST;

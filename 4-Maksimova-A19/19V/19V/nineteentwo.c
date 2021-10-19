@@ -20,7 +20,7 @@ LIST* createList(char* value){
     return tmp;
 }
 
-int pushFront(LIST** list, LIST* newel) {
+int pushFront(LIST** list, LIST* newel){
     if (newel == NULL || newel->next != NULL)
         return 0;
 
@@ -38,7 +38,7 @@ int pushFront(LIST** list, LIST* newel) {
     return 1;
 }
 
-int pushBack(LIST** list, LIST* newel) {
+int pushBack(LIST** list, LIST* newel){
     if (newel == NULL || newel->prev != NULL)
         return 0;
 
@@ -56,8 +56,7 @@ int pushBack(LIST** list, LIST* newel) {
     return 1;
 }
 
-void deleteList(LIST** list)
-{
+void deleteList(LIST** list){
     LIST* tmp = *list;
     LIST* next = NULL;
 
@@ -77,7 +76,7 @@ void deleteList(LIST** list)
     (*list) = NULL;
 }
 
-int popFront(LIST** list, char* src) {
+int popFront(LIST** list, char* src){
     LIST* tmp = *list;
     if (tmp == NULL)
     {
@@ -100,7 +99,7 @@ int popFront(LIST** list, char* src) {
     return 1;
 }
 
-int insertBefore(LIST* q, LIST* newel) {
+int insertBefore(LIST* q, LIST* newel){
     if (q == NULL || newel == NULL || newel->prev != NULL || newel->next != NULL)
         return 0;
 
@@ -113,8 +112,7 @@ int insertBefore(LIST* q, LIST* newel) {
     return 1;
 }
 
-int Sort(LIST* list)
-{
+int Sort(LIST* list){
     LIST* tmp = list;
 
     if (list == NULL)

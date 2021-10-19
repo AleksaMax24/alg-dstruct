@@ -8,8 +8,7 @@ extern "C"
 
 LIST node[6];
 
-void set(void)
-{
+void set(void){
     for (int i = 0; i < 6; i++) {
         node[i].next = node[i].prev = NULL;
     }
@@ -21,13 +20,12 @@ void set(void)
     node[5].value = "55";
 }
 
-TEST(CreateList_Test, CreateList_e) {
+TEST(CreateList_Test, CreateList_e){
 
     LIST* list = createList("tmp");
     EXPECT_EQ(strcmp(list->value, "tmp"), 0);
 }
-TEST(pushFront, EmptyList1_NewElement00)
-{
+TEST(pushFront, EmptyList1_NewElement00){
     set();
     LIST* list = NULL;
 
@@ -36,8 +34,7 @@ TEST(pushFront, EmptyList1_NewElement00)
     EXPECT_EQ(strcmp(list->value, "00"), 0);
 }
 
-TEST(pushFront, ElementList2_NewElement11)
-{
+TEST(pushFront, ElementList2_NewElement11){
     set();
     LIST* list = &node[0];
 
@@ -47,8 +44,7 @@ TEST(pushFront, ElementList2_NewElement11)
     EXPECT_EQ(strcmp(list->prev->value, "11"), 0);
 }
 
-TEST(pushFront, ElementList3_NewElement22)
-{
+TEST(pushFront, ElementList3_NewElement22){
     set();
     LIST* list = &node[0];
     list->prev = &node[1];
@@ -60,8 +56,7 @@ TEST(pushFront, ElementList3_NewElement22)
     EXPECT_EQ(strcmp(list->prev->prev->value, "22"), 0);
 }
 
-TEST(pushBack, EmptyList1_NewElement0)
-{
+TEST(pushBack, EmptyList1_NewElement0){
     set();
     LIST* list = NULL;
 
@@ -70,8 +65,7 @@ TEST(pushBack, EmptyList1_NewElement0)
     EXPECT_EQ(strcmp(list->value, "00"), 0);
 }
 
-TEST(pushBack, ElementList2_NewElement11)
-{
+TEST(pushBack, ElementList2_NewElement11){
     set();
     LIST* list = &node[0];
 
@@ -81,8 +75,7 @@ TEST(pushBack, ElementList2_NewElement11)
     EXPECT_EQ(strcmp(list->next->value, "11"), 0);
 }
 
-TEST(pushBack, ElementList3_NewElement22)
-{
+TEST(pushBack, ElementList3_NewElement22){
     set();
     LIST* list = &node[0];
     list->next = &node[1];
@@ -94,16 +87,14 @@ TEST(pushBack, ElementList3_NewElement22)
     EXPECT_EQ(strcmp(list->next->next->value, "22"), 0);
 }
 
-TEST(popFront, EmptyList_returnError)
-{
+TEST(popFront, EmptyList_returnError){
     LIST* list = NULL;
     char str[MAX_SIZE];
     popFront(&list, str);
     EXPECT_EQ(strcmp(str, ""), 0);
 }
 
-TEST(popFront, ElementList2_returnElement)
-{
+TEST(popFront, ElementList2_returnElement){
     set();
     LIST* list = &node[0];
     char str[MAX_SIZE];
@@ -113,8 +104,7 @@ TEST(popFront, ElementList2_returnElement)
     EXPECT_EQ(list, (LIST*)NULL);
 }
 
-TEST(popFront, MoreElementLis3t_returnElement)
-{
+TEST(popFront, MoreElementLis3t_returnElement){
     set();
     char str[MAX_SIZE];
     LIST* list = &node[1];
@@ -126,8 +116,7 @@ TEST(popFront, MoreElementLis3t_returnElement)
     EXPECT_EQ(strcmp(list->value, "11"), 0);
 }
 
-TEST(insertBefore, ElementList1_returnTrue)
-{
+TEST(insertBefore, ElementList1_returnTrue){
     set();
     LIST* list = &node[0];
 
@@ -135,8 +124,7 @@ TEST(insertBefore, ElementList1_returnTrue)
     EXPECT_EQ(strcmp(list->prev->value, "11"), 0);
 }
 
-TEST(insertBefore, ElementList2_returnTrue)
-{
+TEST(insertBefore, ElementList2_returnTrue){
     set();
     LIST* list = &node[0];
     list->next = &node[1];
@@ -145,22 +133,19 @@ TEST(insertBefore, ElementList2_returnTrue)
     EXPECT_EQ(strcmp(list->next->value, "22"), 0);
 }
 
-TEST(Sort, EmtpyList1_returnNullptr)
-{
+TEST(Sort, EmtpyList1_returnNullptr){
     LIST* list = NULL;
     EXPECT_EQ(Sort(list), 0);
 }
 
-TEST(Sort, ElementList2_returnElement)
-{
+TEST(Sort, ElementList2_returnElement){
     set();
     LIST* list = &node[0];
     Sort(list);
     EXPECT_EQ(strcmp(list->value, "00"), 0);
 }
 
-TEST(Sort, MorethenOneElementList1_returnSortedList)
-{
+TEST(Sort, MorethenOneElementList1_returnSortedList){
     set();
     int mas[] = { 4, 2, 3, 1, 5, 0 };
 
@@ -180,8 +165,7 @@ TEST(Sort, MorethenOneElementList1_returnSortedList)
     }
 }
 
-TEST(Sort, MorethenOneElementList2_returnSortedList)
-{
+TEST(Sort, MorethenOneElementList2_returnSortedList){
     set();
     int mas[] = { 0, 1, 2, 3, 4, 5 };
 
@@ -201,8 +185,7 @@ TEST(Sort, MorethenOneElementList2_returnSortedList)
     }
 }
 
-TEST(Sort, MorethenOneElementList3_returnSortedList)
-{
+TEST(Sort, MorethenOneElementList3_returnSortedList){
     set();
     int mas[] = { 5, 4, 3, 2, 1, 0 };
 
