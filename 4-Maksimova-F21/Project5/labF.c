@@ -98,6 +98,7 @@ node_t* FindTreeLowerOnK(node_t* t, int key, int k) {
     int n = Number(temp);
 
     temp = FindTreeLowerOnKHelp(t, n - k);
+    printf(" it is %d \n", temp->key);
 
     return temp;
 }
