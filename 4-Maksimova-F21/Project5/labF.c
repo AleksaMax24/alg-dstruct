@@ -108,3 +108,60 @@ void FreeTree(node_t* t) {
     FreeTree(t->right);
     free(t);
 }
+
+void PrintTree(node_t* t) {
+    if (t == NULL)
+        return;
+    printf("%d \n", t->key);
+    if (t->left != NULL)
+        PrintTree(t->left);
+    if (t->right != NULL)
+        PrintTree(t->right);
+}
+
+int main() {
+    node_t* tree = NULL;
+    char c = getchar();
+    int key;
+    int lower;
+
+    while (c != EOF)
+    {
+
+        switch (c)
+        {
+        case 'a':
+            scanf("%d", &key);
+            Add(&tree, tree, key);
+            break;
+        case 'f':
+            scanf("%d", &key);
+            if (Find(tree, key))
+                printf("yes\n");
+            else
+                printf("no\n");
+            break;
+        case 'k':
+            scanf("%d", &key);
+            scanf("%d", &lower);
+            if (FindTreeLowerOnK(tree, key, lower))
+                printf("yes\n");
+            else
+                printf("no\n");
+            break;
+        case 'p':
+            PrintTree(tree);
+            break;
+        default:
+            printf("Incorrect input\n");
+            return 0;
+        }
+
+        c = getchar();
+        if (c == '\r')
+            c = getchar();
+        if (c == '\n')
+            c = getchar();
+    }
+
+}
